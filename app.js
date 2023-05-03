@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 
+const router = require('./routes')
 const PORT = 3000
 
 //Setting view template
@@ -11,9 +12,7 @@ app.set('views', './views')
 
 
 //Setting route
-app.get('/', (req, res) => {
-  res.render('index')
-})
+app.use(router)
 
 //Start and Listening on the server
 app.listen(PORT, () => {

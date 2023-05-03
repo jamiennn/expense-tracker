@@ -20,19 +20,25 @@
   </div>
 </div>
 <div class="div">
-  {{!-- 到時候LOOP --}}
+  {{#each expenses}}
   <div class="row">
     <div class="col-sm-6 row space-between">
-      <div class="col-sm-6">午餐</div>
-      <div class="col-sm-4">2000</div>
+      <div class="col-sm-10">
+        <span>{{ this.name }}</span><br>
+        <span>{{ this.date }}</span>
+      </div>
     </div>
     <div class="col-sm-6">
-
-      <a href="/" class="btn btn-secondary">修改</a>
-      <a href="/" class="btn btn-secondary">刪除</a>
+      <a href="/expenses/{{this._id}}/edit" class="btn btn-info">修改</a>
+      <form action="/{{this._id}}?_method=DELETE" method="post" class="btn">
+        <button type="submit" class="btn btn-danger">刪除</button>
+      </form>
     </div>
   </div>
-  {{!-- 結束 --}}
+  {{/each}}
+
 </div>
 
-<a href="/expenses/new" class="btn btn-secondary">新增</a>
+<div class="mt-5">
+  <a href="/expenses/new" class="btn btn-secondary">新增</a>
+</div>

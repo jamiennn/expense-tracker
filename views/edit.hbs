@@ -1,1 +1,64 @@
-<h2>edit</h2>
+<form action="/expenses/{{expense._id}}?_method=PUT" method="POST">
+  <h1 class="mb-1 restaurant-show-title">請輸入您的支出</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+        {{!-- name --}}
+        <p class="mb-4">
+          <label class="text-secondary" for="name">
+            <i class="fas fa-utensils pr-2"></i>
+            名稱：
+          </label>
+          <input type="text" name="name" id="name" placeholder="name" value="{{expense.name}}" class="form-control"
+            maxlength="10" required>
+        </p>
+
+        {{!-- date --}}
+        <p class="mb-4">
+          <label class="text-secondary" for="date">
+            <i class="fas fa-utensils pr-2"></i>
+            日期：
+          </label>
+          <input type="date" name="date" id="date" placeholder="date" value="{{expense.date}}" class="form-control"
+            required>
+        </p>
+
+        {{!-- category --}}
+        <p class="mb-4">
+        <div class="form-group">
+          <label class="text-secondary" for="category">
+            <i class="fas fa-utensils pr-2"></i>
+            類別：
+          </label>
+          <select name="category" id="category" class="dropdown-toggle">
+            <option value="none" disabled>請選擇</option>
+            <option value="home" {{#if expense.home}}selected{{/if}}>家居物業</option>
+            <option value="traffic" {{#if expense.traffic}}selected{{/if}}>交通出行</option>
+            <option value="entertain" {{#if expense.entertain}}selected{{/if}}>休閒娛樂</option>
+            <option value="food" {{#if expense.food}}selected{{/if}}>餐飲食品</option>
+            <option value="others" {{#if expense.others}}selected{{/if}}>其他</option>
+          </select>
+
+        </div>
+
+        </p>
+
+
+        {{!-- cost --}}
+        <p class="mb-4">
+          <label class="text-secondary" for="cost">
+            金額：
+          </label>
+          <input type="number" name="cost" id="cost" placeholder="請輸入1~1,000,000,000之間的數字" min="1" max="1000000000"
+            step="1" class="form-control" value="{{expense.cost}}" inputmode="numeric">
+        </p>
+
+      </div>
+    </div>
+
+    <div class="col-auto text-center mb-3">
+      <a href="/" class="btn btn-primary">Back</a>
+      <button type="submit" class="btn btn-info mx-1">提交</button>
+    </div>
+
+</form>

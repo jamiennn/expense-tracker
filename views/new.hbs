@@ -9,8 +9,7 @@
             <i class="fas fa-utensils pr-2"></i>
             名稱：
           </label>
-          <input type="text" name="name" id="name" placeholder="name" value="{{item.name}}" class="form-control"
-            maxlength="10" required>
+          <input type="text" name="name" id="name" placeholder="name" class="form-control" maxlength="10" required>
         </p>
 
         {{!-- date --}}
@@ -19,8 +18,7 @@
             <i class="fas fa-utensils pr-2"></i>
             日期：
           </label>
-          <input type="date" name="date" id="date" placeholder="date" value="{{item.name}}" class="form-control"
-            required>
+          <input type="date" name="date" id="date" placeholder="date" class="form-control" required>
         </p>
 
         {{!-- category --}}
@@ -30,7 +28,8 @@
             <i class="fas fa-utensils pr-2"></i>
             類別：
           </label>
-          <select name="category" id="category" class="dropdown-toggle" value="{{item.category}}">
+          <select name="category" id="category" class="dropdown-toggle">
+            <option value="none" selected disabled>請選擇</option>
             <option value="home">家居物業</option>
             <option value="traffic">交通出行</option>
             <option value="entertain">休閒娛樂</option>
@@ -48,7 +47,7 @@
             金額：
           </label>
           <input type="number" name="cost" id="cost" placeholder="請輸入1~1,000,000,000之間的數字" min="1" max="1000000000"
-            step="1" class="form-control" value="{{item.rating}}" inputmode="numeric">
+            step="1" class="form-control" inputmode="numeric">
         </p>
 
       </div>

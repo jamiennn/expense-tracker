@@ -1,1 +1,62 @@
-<h2>new</h2>
+<form action="/expenses" method="POST">
+  <h1 class="mb-1 restaurant-show-title">請輸入您的支出</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+        {{!-- name --}}
+        <p class="mb-4">
+          <label class="text-secondary" for="name">
+            <i class="fas fa-utensils pr-2"></i>
+            名稱：
+          </label>
+          <input type="text" name="name" id="name" placeholder="name" value="{{item.name}}" class="form-control"
+            maxlength="10" required>
+        </p>
+
+        {{!-- date --}}
+        <p class="mb-4">
+          <label class="text-secondary" for="date">
+            <i class="fas fa-utensils pr-2"></i>
+            日期：
+          </label>
+          <input type="date" name="date" id="date" placeholder="date" value="{{item.name}}" class="form-control"
+            required>
+        </p>
+
+        {{!-- category --}}
+        <p class="mb-4">
+        <div class="form-group">
+          <label class="text-secondary" for="category">
+            <i class="fas fa-utensils pr-2"></i>
+            類別：
+          </label>
+          <select name="category" id="category" class="dropdown-toggle" value="{{item.category}}">
+            <option value="home">家居物業</option>
+            <option value="traffic">交通出行</option>
+            <option value="entertain">休閒娛樂</option>
+            <option value="food">餐飲食品</option>
+            <option value="others">其他</option>
+          </select>
+        </div>
+
+        </p>
+
+
+        {{!-- cost --}}
+        <p class="mb-4">
+          <label class="text-secondary" for="cost">
+            金額：
+          </label>
+          <input type="number" name="cost" id="cost" placeholder="請輸入1~1,000,000,000之間的數字" min="1" max="1000000000"
+            step="1" class="form-control" value="{{item.rating}}" inputmode="numeric">
+        </p>
+
+      </div>
+    </div>
+
+    <div class="col-auto text-center mb-3">
+      <a href="/" class="btn btn-primary">Back</a>
+      <button type="submit" class="btn btn-info mx-1">提交</button>
+    </div>
+
+</form>

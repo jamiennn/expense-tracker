@@ -1,15 +1,21 @@
 const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const router = require('./routes')
 const PORT = 3000
+
+//Setting mongodb
+require('./config/mongoose')
 
 //Setting view template
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.set('views', './views')
 
+//Setting body parser
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //Setting route
 app.use(router)

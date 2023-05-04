@@ -8,12 +8,13 @@ const flash = require('connect-flash')
 
 const usePassport = require('./config/passport')
 const router = require('./routes')
-const PORT = 3000
+
 
 //Require dotenv
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv')
+  require('dotenv').config()
 }
+const port = process.env.PORT
 
 //Setting mongodb
 require('./config/mongoose')
@@ -56,6 +57,6 @@ app.use((req, res, next) => {
 app.use(router)
 
 //Start and Listening on the server
-app.listen(PORT, () => {
-  console.log(`Now listening on http://localhost${PORT}`)
+app.listen(port, () => {
+  console.log(`Now listening on http://localhost${port}`)
 })

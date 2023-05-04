@@ -1,63 +1,72 @@
-<form action="/records" method="POST">
-  <h1 class="mb-1 restaurant-show-title">請輸入您的支出</h1>
+<form action="/records" method="POST" id="form" class="needs-validation" novalidate>
+  <p class="create-title text-info">請輸入您的支出</p>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 mx-auto">
         {{!-- name --}}
-        <p class="mb-4">
+        <div class="mb-4">
           <label class="text-secondary" for="name">
-            <i class="fas fa-utensils pr-2"></i>
+            <i class="fas fa-file-signature pr-2"></i>
             名稱：
           </label>
-          <input type="text" name="name" id="name" placeholder="name" class="form-control" maxlength="10"
+          <input type="text" name="name" id="name" placeholder="name" class="form-control" maxlength="22"
             value="{{body.name}}" required>
-        </p>
-
-        {{!-- date --}}
-        <p class="mb-4">
-          <label class="text-secondary" for="date">
-            <i class="fas fa-utensils pr-2"></i>
-            日期：
-          </label>
-          <input type="date" name="date" id="date" placeholder="date" class="form-control" value="{{ body.date }}"
-            required>
-        </p>
-
-        {{!-- category --}}
-        <p class="mb-4">
-        <div class="form-group">
-          <label class="text-secondary" for="category">
-            <i class="fas fa-utensils pr-2"></i>
-            類別：
-          </label>
-          <select name="categoryId" id="category" class="dropdown-toggle form-control" required>
-            <option value="none" selected disabled>請選擇▼</option>
-            <option value="1">家居物業</option>
-            <option value="2">交通出行</option>
-            <option value="3">休閒娛樂</option>
-            <option value="4">餐飲食品</option>
-            <option value="5">其他</option>
-          </select>
+          <div class="invalid-feedback">請填寫22個字元以內的名稱</div>
         </div>
 
-        </p>
-        <p>{{body.message}}</p>
+        {{!-- date --}}
+        <div class="mb-4 row">
+          <div class="col-sm-4">
+            <label class="text-secondary" for="date">
+              <i class="fas fa-calendar-days pr-2"></i>
+              日期：
+            </label>
+            <input type="date" name="date" id="date" placeholder="date" class="form-control" value="{{ body.date }}"
+              required>
+            <div class="invalid-feedback">請填寫日期</div>
+          </div>
+        </div>
+
+        {{!-- category --}}
+        <div class="mb-4 row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="text-secondary" for="category">
+                <i class="fas fa-folder-tree pr-2"></i>
+                類別：
+              </label>
+              <select name="categoryId" id="category" class="form-select" required>
+                <option value="" id="none" selected disabled>請選擇 ▼</option>
+                <option value="1">家居物業</option>
+                <option value="2">交通出行</option>
+                <option value="3">休閒娛樂</option>
+                <option value="4">餐飲食品</option>
+                <option value="5">其他</option>
+              </select>
+              <div class="invalid-feedback">請選擇類別</div>
+            </div>
+          </div>
+        </div>
+
 
         {{!-- amount --}}
-        <p class="mb-4">
-          <label class="text-secondary" for="amount">
-            金額：
-          </label>
-          <input type="number" name="amount" id="amount" placeholder="請輸入1~1,000,000,000之間的數字" min="1" max="1000000000"
-            step="1" class="form-control" inputmode="numeric" value="{{body.amount}}" required>
-        </p>
-
+        <div class="mb-4 row">
+          <div class="col-sm-4">
+            <label class="text-secondary" for="amount">
+              <i class="fas fa-dollar-sign pr-2"></i>
+              金額：
+            </label>
+            <input type="number" name="amount" id="amount" placeholder="1~1,000,000,000" min="1" max="1000000000"
+              step="1" class="form-control" inputmode="numeric" value="{{body.amount}}" required>
+            <div class="invalid-feedback">請輸入1~1,000,000,000之間的數字</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="col-auto text-center mb-3">
       <a href="/" class="btn btn-primary">Back</a>
-      <button type="submit" class="btn btn-info mx-1">提交</button>
+      <button type="submit" class="btn btn-info mx-1" id="submit">提交</button>
     </div>
 
 </form>

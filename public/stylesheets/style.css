@@ -2,6 +2,12 @@
   font-size: 70px;
 }
 
+.create-title {
+  font-size: 25px;
+  margin: 40px 0;
+  text-align: center;
+}
+
 .record-name {
   font-size: 20px;
 }

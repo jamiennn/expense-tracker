@@ -1,12 +1,13 @@
 //delete modal
 const content = document.querySelector('#content')
 const modal = document.querySelector('#exampleModal')
-content.addEventListener('click', function () {
-  if (event.target.matches('.delete')) {
-    const id = event.target.dataset.id
-    const name = event.target.dataset.name
-    modal.innerHTML =
-      `<div class="modal-dialog">
+if (content) {
+  content.addEventListener('click', function () {
+    if (event.target.matches('.delete')) {
+      const id = event.target.dataset.id
+      const name = event.target.dataset.name
+      modal.innerHTML =
+        `<div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">確定刪除：${name}？</h1>
@@ -20,18 +21,27 @@ content.addEventListener('click', function () {
       </div>
     </div>
   </div>`
-  }
-})
+    }
+  })
+}
+
 
 //show number with commas
 const totalAmount = document.querySelector('#totalAmount')
-totalAmount.innerText = getNumberWithCommas(totalAmount.innerText)
+
+if (totalAmount) {
+  totalAmount.innerText = getNumberWithCommas(totalAmount.innerText)
+}
 
 const recordAmount = document.querySelectorAll('.record-amount')
 const records = Array.from(recordAmount)
-records.map(record => {
-  record.innerText = getNumberWithCommas(record.innerText)
-})
+
+if (records) {
+  records.map(record => {
+    record.innerText = getNumberWithCommas(record.innerText)
+  })
+}
+
 
 //Setting background color of records
 const recordRow = document.querySelectorAll('.record-row')
@@ -41,6 +51,23 @@ rows.map((row, row_index) => {
     row.classList.add('row-background')
   }
 })
+
+//form validation from front-end
+const form = document.querySelector('#form')
+const submitButton = document.querySelector('#submit')
+
+if (submitButton) {
+  submitButton.addEventListener('click', function onSubmitClick() {
+    form.classList.add('was-validated')
+  })
+
+  form.addEventListener('submit', function onFormSubmit() {
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+  })
+}
 
 //function
 function getNumberWithCommas(number) {

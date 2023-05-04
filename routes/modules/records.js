@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const Expense = require('../../models/expense')
+const Record = require('../../models/record')
+const dateFormat = require('dateformat')
 
 
 //Create
@@ -11,11 +12,11 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const body = req.body
-  if (!body.category) {
+  if (!body.categoryId) {
     body.message = '請選擇類別'
     return res.render('new', { body })
   }
-  Expense.create(body)
+  Record.create(body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
@@ -23,27 +24,28 @@ router.post('/', (req, res) => {
 //Edit
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
-  Expense.findById(id)
+  Record.findById(id)
     .lean()
     .then(expense => {
-      if (expense.category === 'home') expense.home = 'home'
-      if (expense.category === 'traffic') expense.traffic = 'traffic'
-      if (expense.category === 'entertain') expense.entertain = 'entertain'
-      if (expense.category === 'food') expense.food = 'food'
-      if (expense.category === 'others') expense.others = 'others'
+      if (expense.categoryId === 1) expense.home = 'home'
+      if (expense.categoryId === 2) expense.traffic = 'traffic'
+      if (expense.categoryId === 3) expense.entertain = 'entertain'
+      if (expense.categoryId === 4) expense.food = 'food'
+      if (expense.categoryId === 5) expense.others = 'others'
+      expense.date = dateFormat(expense.date, "yyyy-mm-dd")
       res.render('edit', { expense })
     })
     .catch(err => console.log(err))
 })
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const { name, date, category, cost } = req.body
-  Expense.findById(id)
+  const { name, date, categoryId, amount } = req.body
+  Record.findById(id)
     .then(expense => {
       expense.name = name
       expense.date = date
-      expense.category = category
-      expense.cost = cost
+      expense.categoryId = categoryId
+      expense.amount = amount
       return expense.save()
     })
     .then(() => res.redirect('/'))
@@ -53,7 +55,7 @@ router.put('/:id', (req, res) => {
 //Delete
 router.delete('/:id', (req, res) => {
   const id = req.params.id
-  Expense.deleteOne({ _id: id })
+  Record.deleteOne({ _id: id })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })

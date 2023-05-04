@@ -1,26 +1,28 @@
 const express = require('express')
 const router = express.Router()
-const Expense = require('../../models/expense')
+const Record = require('../../models/record')
+const dateFormat = require('dateformat')
 
-//待解決
+
 const CATEGORY = {
-  home: "fa-solid fa-house",
-  traffic: "fa-solid fa-van-shuttle",
-  entertain: "fa-solid fa-face-grin-beam",
-  food: "fa-solid fa-utensils",
-  others: "fa-solid fa-pen"
+  1: "fa-solid fa-house",
+  2: "fa-solid fa-van-shuttle",
+  3: "fa-solid fa-face-grin-beam",
+  4: "fa-solid fa-utensils",
+  5: "fa-solid fa-pen"
 }
 
 router.get('/', (req, res) => {
-  Expense.find()
+  Record.find()
     .lean()
     .then(expenses => {
-      let total = 0
+      let totalAmount = 0
       expenses.forEach(expense => {
-        expense.CATEGORY = CATEGORY[expense.category]
-        total += expense.cost
+        expense.CATEGORY = CATEGORY[Number(expense.categoryId)]
+        totalAmount += expense.amount
+        expense.date = dateFormat(expense.date, "yyyy/mm/dd")
       })
-      res.render('index', { expenses, total })
+      res.render('index', { expenses, totalAmount })
     })
 })
 

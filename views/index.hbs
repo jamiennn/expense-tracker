@@ -15,7 +15,7 @@
   </div>
   <div class="col-sm-8">
     <p class="fs-1">
-      {{ total }}
+      {{ totalAmount }}
     </p>
   </div>
 </div>
@@ -30,11 +30,11 @@
       </div>
     </div>
     <div class="col-sm-2">
-      <span>{{ this.cost }}</span>
+      <span>{{ this.amount }}</span>
     </div>
     <div class="col-sm-4">
-      <a href="/expenses/{{this._id}}/edit" class="btn btn-info">修改</a>
-      <form action="/expenses/{{this._id}}?_method=DELETE" method="POST" class="btn">
+      <a href="/records/{{this._id}}/edit" class="btn btn-info">修改</a>
+      <form action="/records/{{this._id}}?_method=DELETE" method="POST" class="btn">
         <button type="submit" class="btn btn-danger">刪除</button>
       </form>
     </div>
@@ -47,5 +47,5 @@
 </div>
 
 <div class="mt-5">
-  <a href="/expenses/new" class="btn btn-secondary">新增</a>
+  <a href="/records/new" class="btn btn-secondary">新增</a>
 </div>

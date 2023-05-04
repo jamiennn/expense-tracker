@@ -21,6 +21,7 @@ const recordSchema = new Schema({
   // },
   categoryId: {
     type: Number,
+    ref: 'Category',
     required: true
   },
 

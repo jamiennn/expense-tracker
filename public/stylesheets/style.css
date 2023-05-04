@@ -1,0 +1,28 @@
+#totalAmount {
+  font-size: 70px;
+}
+
+.record-name {
+  font-size: 20px;
+}
+
+.record-date {
+  font-size: 13px;
+}
+
+.fa-solid {
+  font-size: 35px;
+}
+
+.record-amount {
+  font-size: 30px;
+  letter-spacing: 2px;
+}
+
+.record-row {
+  border-radius: 10px;
+}
+
+.row-background {
+  background: #d3d3d3
+}

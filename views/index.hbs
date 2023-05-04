@@ -1,6 +1,6 @@
 <div class="dropdown text-center">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    類別
+    Category
   </button>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="/">全部</a></li>
@@ -13,29 +13,31 @@
 </div>
 
 <div class="row mt-5">
-  <div class="col-sm-4">
-    <p>總金額：</p>
+  <div class="col-sm-2 p-0">
+    <p class="fs-4">總金額：</p>
   </div>
-  <div class="col-sm-8">
-    <p class="fs-1">
+  <div class="col-sm-11 text-center">
+    <h1 id="totalAmount" class="text-success">
       {{ totalAmount }}
-    </p>
+    </h1>
   </div>
 </div>
 <div class="div" id="content">
   {{#each expenses}}
-  <div class="row">
-    <div class="col-sm-6 row space-between">
-      <div class="col-sm-6">
-        <i class="{{this.CATEGORY}}"></i>
-        <span>{{ this.name }}</span><br>
-        <span>{{ this.date }}</span>
+  <div class="row record-row">
+    <div class="col-sm-5 row space-between">
+      <div class="col-sm-4">
+        <i class="{{this.CATEGORY}} text-info mt-3"></i>
+      </div>
+      <div class="col-sm-6 pt-3">
+        <span class="record-name">{{ this.name }}</span><br>
+        <span class="record-date">{{ this.date }}</span>
       </div>
     </div>
-    <div class="col-sm-2">
-      <span>{{ this.amount }}</span>
+    <div class="col-sm-4 text-end  pt-3">
+      <span class="record-amount">{{ this.amount }}</span>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3 text-end pt-3">
       <a href="/records/{{this._id}}/edit" class="btn btn-info">修改</a>
 
       <!-- Button trigger modal -->

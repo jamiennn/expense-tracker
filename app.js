@@ -19,13 +19,15 @@ const port = process.env.PORT
 //Setting mongodb
 require('./config/mongoose')
 
+//Setting static files
+app.use(express.static('public'))
+
 //Setting method override
 app.use(methodOverride('_method'))
 
 //Setting view template
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
-// 晚點刪app.set('views', './views')
 
 
 //Setting body parser

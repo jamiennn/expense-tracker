@@ -42,34 +42,3 @@ db.once('open', async () => {
   console.log('done.')
   process.exit()
 })
-
-
-// db.once('open', async () => {
-//   await Promise.all(SEED_USER.map(async (user) => {
-//     const { name, email } = user
-//     const salt = bcrypt.genSalt(10)
-//     const hash = bcrypt.hash(user.password, salt)
-//       .then(salt => bcrypt.hash(user.password, salt))
-//       .then(hash => {
-//         return User.create({ name, email, password: hash })
-//           .then(user => {
-//             const userId = user._id
-//             return Promise.all(Array.from(
-//               { length: 10 },
-//               (_, i) => {
-//                 return Record.create({
-//                   name: i,
-//                   date: Date.now(),
-//                   amount: i * 100,
-//                   userId,
-//                   categoryId: i % 5 + 1
-//                 })
-//               }
-//             ))
-//           })
-//           .catch(err => console.log(err))
-//       })
-//   }))
-//   console.log('done.')
-//   process.exit()
-// })

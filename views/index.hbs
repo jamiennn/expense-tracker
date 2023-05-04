@@ -15,7 +15,7 @@
   </div>
   <div class="col-sm-8">
     <p class="fs-1">
-      20000
+      {{ total }}
     </p>
   </div>
 </div>
@@ -23,18 +23,25 @@
   {{#each expenses}}
   <div class="row">
     <div class="col-sm-6 row space-between">
-      <div class="col-sm-10">
+      <div class="col-sm-6">
+        <i class="{{this.CATEGORY}}"></i>
         <span>{{ this.name }}</span><br>
         <span>{{ this.date }}</span>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-2">
+      <span>{{ this.cost }}</span>
+    </div>
+    <div class="col-sm-4">
       <a href="/expenses/{{this._id}}/edit" class="btn btn-info">修改</a>
       <form action="/expenses/{{this._id}}?_method=DELETE" method="POST" class="btn">
         <button type="submit" class="btn btn-danger">刪除</button>
       </form>
     </div>
   </div>
+
+
+
   {{/each}}
 
 </div>

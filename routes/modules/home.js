@@ -4,17 +4,24 @@ const Expense = require('../../models/expense')
 
 //待解決
 const CATEGORY = {
-  家居物業: "https://fontawesome.com/icons/home?style=solid",
-  交通出行: "https://fontawesome.com/icons/shuttle-van?style=solid",
-  休閒娛樂: "https://fontawesome.com/icons/grin-beam?style=solid",
-  餐飲食品: "https://fontawesome.com/icons/utensils?style=solid",
-  其他: "https://fontawesome.com/icons/pen?style=solid"
+  home: "fa-solid fa-house",
+  traffic: "fa-solid fa-van-shuttle",
+  entertain: "fa-solid fa-face-grin-beam",
+  food: "fa-solid fa-utensils",
+  others: "fa-solid fa-pen"
 }
 
 router.get('/', (req, res) => {
   Expense.find()
     .lean()
-    .then(expenses => res.render('index', { expenses }))
+    .then(expenses => {
+      let total = 0
+      expenses.forEach(expense => {
+        expense.CATEGORY = CATEGORY[expense.category]
+        total += expense.cost
+      })
+      res.render('index', { expenses, total })
+    })
 })
 
 module.exports = router

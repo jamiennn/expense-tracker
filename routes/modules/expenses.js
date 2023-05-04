@@ -11,6 +11,10 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const body = req.body
+  if (!body.category) {
+    body.message = '請選擇類別'
+    return res.render('new', { body })
+  }
   Expense.create(body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))

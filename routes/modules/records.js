@@ -11,20 +11,22 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const body = req.body
   if (!body.categoryId) {
     body.message = '請選擇類別'
     return res.render('new', { body })
   }
-  Record.create(body)
+  Record.create({ ...body, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
 //Edit
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  Record.findOne({ _id, userId })
     .lean()
     .then(expense => {
       if (expense.categoryId === 1) expense.home = 'home'
@@ -38,9 +40,10 @@ router.get('/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, categoryId, amount } = req.body
-  Record.findById(id)
+  Record.findOne({ _id, userId })
     .then(expense => {
       expense.name = name
       expense.date = date
@@ -54,8 +57,9 @@ router.put('/:id', (req, res) => {
 
 //Delete
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  Record.deleteOne({ _id: id })
+  const userId = req.user._id
+  const _id = req.params.id
+  Record.deleteOne({ _id, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })

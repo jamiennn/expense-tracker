@@ -1,5 +1,6 @@
 <form action="/records" method="POST" id="form" class="needs-validation" novalidate>
   <p class="create-title text-info">請輸入您的支出</p>
+  <p class="required-input"><span class="text-danger mx-1">*</span>為必填項目</p>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 mx-auto">
@@ -7,7 +8,7 @@
         <div class="mb-4">
           <label class="text-secondary" for="name">
             <i class="fas fa-file-signature pr-2"></i>
-            名稱：
+            名稱<span class="text-danger mx-1">*</span>：
           </label>
           <input type="text" name="name" id="name" placeholder="name" class="form-control" maxlength="22"
             value="{{body.name}}" required>
@@ -19,7 +20,7 @@
           <div class="col-sm-4">
             <label class="text-secondary" for="date">
               <i class="fas fa-calendar-days pr-2"></i>
-              日期：
+              日期<span class="text-danger mx-1">*</span>：
             </label>
             <input type="date" name="date" id="date" placeholder="date" class="form-control" value="{{ body.date }}"
               required>
@@ -33,10 +34,10 @@
             <div class="form-group">
               <label class="text-secondary" for="category">
                 <i class="fas fa-folder-tree pr-2"></i>
-                類別：
+                類別<span class="text-danger mx-1">*</span>：
               </label>
               <select name="categoryId" id="category" class="form-select" required>
-                <option value="" id="none" selected disabled>請選擇 ▼</option>
+                <option value="" id="none" selected disabled>請選擇</option>
                 <option value="1">家居物業</option>
                 <option value="2">交通出行</option>
                 <option value="3">休閒娛樂</option>
@@ -54,7 +55,7 @@
           <div class="col-sm-4">
             <label class="text-secondary" for="amount">
               <i class="fas fa-dollar-sign pr-2"></i>
-              金額：
+              金額<span class="text-danger mx-1">*</span>：
             </label>
             <input type="number" name="amount" id="amount" placeholder="1~1,000,000,000" min="1" max="1000000000"
               step="1" class="form-control" inputmode="numeric" value="{{body.amount}}" required>

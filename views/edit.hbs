@@ -1,5 +1,6 @@
 <form action="/records/{{expense._id}}?_method=PUT" method="POST" id="form" class="needs-validation" novalidate>
   <p class="create-title text-info">請輸入您的支出</p>
+  <p class="required-input"><span class="text-danger mx-1">*</span>為必填項目</p>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-10 mx-auto">
@@ -36,7 +37,7 @@
                 類別：
               </label>
               <select name="categoryId" id="category" class="form-select" required>
-                <option value="" id="none" disabled>請選擇▼</option>
+                <option value="" id="none" disabled>請選擇</option>
                 <option value="1" {{#if expense.home}}selected{{/if}}>家居物業</option>
                 <option value="2" {{#if expense.traffic}}selected{{/if}}>交通出行</option>
                 <option value="3" {{#if expense.entertain}}selected{{/if}}>休閒娛樂</option>

@@ -3,6 +3,13 @@ const router = express.Router()
 const User = require('../../models/user')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
+const { body, validationResult } = require('express-validator')
+
+//Setting validator
+const createEmailChain = () => body('email').trim().isEmail().withMessage('請填寫有效的email')
+const notEmptyChain = (sth) => body(sth).trim().notEmpty().withMessage('星號為必填')
+const passwordLength = (sth) => body(sth).trim().isLength({ min: 8 }).withMessage('密碼必須含有8個字元')
+
 
 //login
 router.get('/login', (req, res) => {
@@ -19,54 +26,67 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
+
 //middleware
-router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/users/login',
-  successRedirect: '/',
-  failureMessage: true
-}))
+router.post('/login',
+  createEmailChain(),
+  passwordLength('password'),
+  (req, res, next) => {
+    //先確認輸入的資料是否適當
+    const errors = validationResult(req).errors
+    if (errors.length) {
+      return res.render('login', { ...req.body, errors })
+    }
+    return next()
+  },
+  //用passport驗證身份
+  passport.authenticate('local', {
+    failureRedirect: '/users/login',
+    successRedirect: '/',
+    failureMessage: true
+  }))
 
 //register
 router.get('/register', (req, res) => {
   res.render('register')
 })
 
-router.post('/register', (req, res) => {
-  const { name, email, password, confirmPassword } = req.body
-  const errors = []
+router.post('/register',
+  createEmailChain(),
+  notEmptyChain('password') || notEmptyChain('confirmPassword'),
+  passwordLength('password'),
+  body('confirmPassword').trim().custom((value, { req }) => {
+    if (value !== req.body.password) throw new Error('密碼與確認密碼不相符')
+    return true
+  }),
+  (req, res) => {
 
-  //設定必填項目
-  if (!email || !password || !confirmPassword) {
-    errors.push({ message: '星號項目為必填' })
-  }
+    //如表單有錯誤
+    const { name, email, password, confirmPassword } = req.body
+    const errors = validationResult(req).errors
+    if (errors.length) {
+      return res.render('register', { ...req.body, errors })
+    }
 
-  //密碼必須與確認密碼相符
-  if (password !== confirmPassword) {
-    errors.push({ message: '密碼與確認密碼不相符' })
-  }
-
-  if (errors.length) {
-    return res.render('register', { name, email, password, confirmPassword, errors })
-  }
-
-  User.findOne({ email })
-    .then(user => {
-      //若此email已經註冊過
-      if (user) {
-        errors.push({ message: '此email已經註冊過' })
-        return res.render('register', { name, email, password, confirmPassword, errors })
-      }
-      //若沒問題，成功註冊
-      return bcrypt
-        .genSalt(10)
-        .then(salt => bcrypt.hash(password, salt))
-        .then(hash => {
-          User.create({ name, email, password: hash })
-        })
-        .then(() => res.redirect('/'))
-        .catch(err => console.log(err))
-    })
-})
+    //如表單無錯誤
+    User.findOne({ email })
+      .then(user => {
+        //若此email已經註冊過
+        if (user) {
+          errors.push({ msg: '此email已經註冊過' })
+          return res.render('register', { ...req.body, errors })
+        }
+        //若沒問題，成功註冊
+        return bcrypt
+          .genSalt(10)
+          .then(salt => bcrypt.hash(password, salt))
+          .then(hash => {
+            User.create({ name, email, password: hash })
+          })
+          .then(() => res.redirect('/'))
+          .catch(err => console.log(err))
+      })
+  })
 
 //logout
 router.get('/logout', (req, res) => {

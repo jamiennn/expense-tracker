@@ -3,7 +3,7 @@
     <div class="card card-body">
       <h1 class="text-center mt-3">Login</h1>
       {{> message}}
-      <form action="/users/login" method="post">
+      <form action="/users/login" method="post" novalidate>
         <div class="mb-3">
           <label for="email" class="mb-2">Email</label>
           <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required

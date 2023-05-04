@@ -4,8 +4,13 @@
 
 .create-title {
   font-size: 25px;
-  margin: 40px 0;
+  margin: 40px 0 20px 0;
   text-align: center;
+}
+
+.required-input {
+  text-align: center;
+  margin: 0 0 40px 0;
 }
 
 .record-name {

@@ -41,7 +41,10 @@ if (records) {
     record.innerText = getNumberWithCommas(record.innerText)
   })
 }
-
+//function
+function getNumberWithCommas(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 //Setting background color of records
 const recordRow = document.querySelectorAll('.record-row')
@@ -67,9 +70,4 @@ if (submitButton) {
       event.stopPropagation()
     }
   })
-}
-
-//function
-function getNumberWithCommas(number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

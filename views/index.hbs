@@ -1,13 +1,24 @@
-<div class="dropdown text-center mt-4">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Category
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="/">全部</a></li>
-    {{#each categorys}}
-    <li><a class="dropdown-item" href="/search/{{this._id}}">{{this.name}}</a></li>
-    {{/each}}
-  </ul>
+<div class="row mt-5">
+  <div class="dropdown text-center col-sm-4">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Category
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/">全部</a></li>
+      {{#each categorys}}
+      <li><a class="dropdown-item" href="/search/{{this._id}}">{{this.name}}</a></li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <form action="/search" method="POST">
+      <label for="start">Search month:</label>
+      <input type="month" id="start" name="searchDate" min="2023-01"
+        value="{{#if searchDate}}{{searchDate}}{{else}}2023-05{{/if}}">
+      <button type="submit" class="btn btn-outline-secondary btn-sm">Search</button>
+    </form>
+  </div>
 </div>
 
 

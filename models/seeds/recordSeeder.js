@@ -1,6 +1,7 @@
 //Include modules
 const User = require('../user')
 const Record = require('../record')
+const Category = require('../category')
 
 const bcrypt = require('bcryptjs')
 const db = require('../../config/mongoose')
@@ -29,13 +30,16 @@ db.once('open', async () => {
     const hash = await bcrypt.hash(user.password, salt)
     const createdUser = await User.create({ name, email, password: hash })
     const userId = createdUser._id
+    const categorys = await Category.find().lean()
+    const categoryIds = categorys.map(category => category._id)
+
     await Promise.all(Array.from({ length: 10 }, (_, i) => {
       return Record.create({
         name: `name: ${i}`,
         date: Date.now(),
         amount: i * 100,
         userId,
-        categoryId: i % 5 + 1
+        categoryId: categoryIds[i % 5]
       })
     }))
   }))

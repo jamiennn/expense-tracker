@@ -4,11 +4,9 @@
   </button>
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="/">全部</a></li>
-    <li><a class="dropdown-item" href="/search/1">家居物業</a></li>
-    <li><a class="dropdown-item" href="/search/2">交通出行</a></li>
-    <li><a class="dropdown-item" href="/search/3">休閒娛樂</a></li>
-    <li><a class="dropdown-item" href="/search/4">餐飲食品</a></li>
-    <li><a class="dropdown-item" href="/search/5">其他</a></li>
+    {{#each categorys}}
+    <li><a class="dropdown-item" href="/search/{{this._id}}">{{this.name}}</a></li>
+    {{/each}}
   </ul>
 </div>
 
@@ -26,8 +24,8 @@
   {{#each expenses}}
   <div class="row record-row">
     <div class="col-sm-5 row space-between">
-      <div class="col-sm-4">
-        <i class="{{this.CATEGORY}} text-info mt-3"></i>
+      <div class="col-sm-4 text-center">
+        <i class="{{this.icon}} text-info mt-3"></i>
       </div>
       <div class="col-sm-8 pt-3">
         <span class="record-name">{{ this.name }}</span><br>

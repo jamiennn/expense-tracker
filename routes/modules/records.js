@@ -2,12 +2,14 @@ const express = require('express')
 const router = express.Router()
 
 const Record = require('../../models/record')
+const Category = require('../../models/category')
 const dateFormat = require('dateformat')
 
 
 //Create
 router.get('/new', (req, res) => {
-  res.render('new')
+  Category.find().lean().sort({ id: 'asc' })
+    .then(categorys => res.render('new', { categorys }))
 })
 
 router.post('/', (req, res) => {
@@ -26,19 +28,21 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
+
   Record.findOne({ _id, userId })
     .lean()
-    .then(expense => {
-      if (expense.categoryId === 1) expense.home = 'home'
-      if (expense.categoryId === 2) expense.traffic = 'traffic'
-      if (expense.categoryId === 3) expense.entertain = 'entertain'
-      if (expense.categoryId === 4) expense.food = 'food'
-      if (expense.categoryId === 5) expense.others = 'others'
+    .then(async (expense) => {
+      const categorys = await Category.find().lean().sort({ id: 'asc' })
+      categorys.forEach(category => {
+        if (category._id.equals(expense.categoryId)) category.selected = 'true'
+      })
       expense.date = dateFormat(expense.date, "yyyy-mm-dd")
-      res.render('edit', { expense })
+      res.render('edit', { expense, categorys })
     })
     .catch(err => console.log(err))
 })
+
+
 router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
